@@ -1,7 +1,7 @@
 
 # forms-react19
 
-A modern React 19 + Next.js 15 demo project featuring a fully functional address form with validation, server actions, and a beautiful UI using Radix UI and Tailwind CSS.
+A modern React 19 + Next.js 15 demo project featuring a fully functional address form with validation, server actions & UI using Radix UI and Tailwind CSS.
 
 ## Features
 - Address form with both client and server validation
