@@ -13,9 +13,6 @@ const addressSchema = z.object({
 })
 
 export async function submitAddress(prevState: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
-  // Simulate network delay
-  // await new Promise((resolve) => setTimeout(resolve, 1000))
-
   try {
     const rawData: AddressFormData = {
       streetAddress: formData.get('streetAddress') as string,
@@ -26,22 +23,16 @@ export async function submitAddress(prevState: ActionResponse | null, formData: 
       country: formData.get('country') as string,
     }
 
-    // Validate the form data
     const validatedData = addressSchema.safeParse(rawData)
     
     if (!validatedData.success) {
-      // console.log(z.treeifyError(validatedData.error).properties, "flat", validatedData.error.flatten().fieldErrors)
       return {
         success: false,
         message: 'Please fix the errors in the form',
-        // errors: validatedData.error.flatten().fieldErrors,
         errors: z.treeifyError(validatedData.error).properties,
         inputs: rawData,
       }
     }
-
-    // Here you would typically save the address to your database
-    // console.log('Address submitted:', validatedData.data)
 
     return {
       success: true,
