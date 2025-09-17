@@ -14,4 +14,3 @@ export interface ActionResponse {
     [K in keyof AddressFormData]?: string[];
   };
 }
-

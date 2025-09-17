@@ -38,7 +38,7 @@ export async function submitAddress(prevState: ActionResponse | null, formData: 
       success: true,
       message: 'Address saved successfully!',
     }
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'An unexpected error occurred',
