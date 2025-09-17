@@ -33,7 +33,6 @@ export default function AddressForm() {
                 id="streetAddress"
                 name="streetAddress"
                 placeholder="123 Main St"
-                // required
                 minLength={5}
                 maxLength={100}
                 defaultValue={state.initialData?.streetAddress || ''}
@@ -67,7 +66,7 @@ export default function AddressForm() {
                 <Input
                   id="city"
                   name="city"
-                  placeholder="New York"
+                  placeholder="New Delhi"
                   required
                   defaultValue={state.initialData?.city || ''}
                   minLength={2}
@@ -88,7 +87,7 @@ export default function AddressForm() {
                 <Input
                   id="state"
                   name="state"
-                  placeholder="NY"
+                  placeholder="Delhi"
                   defaultValue={state.initialData?.state || ''}
                   required
                   minLength={2}
@@ -111,7 +110,7 @@ export default function AddressForm() {
                 <Input
                   id="zipCode"
                   name="zipCode"
-                  placeholder="10001"
+                  placeholder="110091"
                   defaultValue={state.initialData?.zipCode || ''}
                   required
                   pattern="([0-9]{5}(-[0-9]{4})?|[0-9]{6})"
@@ -133,7 +132,7 @@ export default function AddressForm() {
                   id="country"
                   name="country"
                   defaultValue={state.initialData?.country || ''}
-                  placeholder="United States"
+                  placeholder="India"
                   required
                   minLength={2}
                   maxLength={56}
