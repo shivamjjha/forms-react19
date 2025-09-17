@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import type { ActionResponse } from '../types/address'
-import { CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, CircleAlert } from 'lucide-react'
 
 const initialState: ActionResponse = {
   success: false,
@@ -36,6 +36,7 @@ export default function AddressForm() {
                 // required
                 minLength={5}
                 maxLength={100}
+                defaultValue={state.initialData?.streetAddress || ''}
                 autoComplete="street-address"
                 aria-describedby="streetAddress-error"
                 className={state?.errors?.streetAddress ? 'border-red-500' : ''}
@@ -52,6 +53,7 @@ export default function AddressForm() {
               <Input
                 id="apartment"
                 name="apartment"
+                defaultValue={state.initialData?.apartment || ''}
                 placeholder="Apt 4B"
                 maxLength={20}
                 autoComplete="address-line2"
@@ -67,6 +69,7 @@ export default function AddressForm() {
                   name="city"
                   placeholder="New York"
                   required
+                  defaultValue={state.initialData?.city || ''}
                   minLength={2}
                   maxLength={50}
                   autoComplete="address-level2"
@@ -86,6 +89,7 @@ export default function AddressForm() {
                   id="state"
                   name="state"
                   placeholder="NY"
+                  defaultValue={state.initialData?.state || ''}
                   required
                   minLength={2}
                   maxLength={50}
@@ -108,6 +112,7 @@ export default function AddressForm() {
                   id="zipCode"
                   name="zipCode"
                   placeholder="10001"
+                  defaultValue={state.initialData?.zipCode || ''}
                   required
                   pattern="([0-9]{5}(-[0-9]{4})?|[0-9]{6})"
                   maxLength={10}
@@ -127,6 +132,7 @@ export default function AddressForm() {
                 <Input
                   id="country"
                   name="country"
+                  defaultValue={state.initialData?.country || ''}
                   placeholder="United States"
                   required
                   minLength={2}
@@ -147,6 +153,7 @@ export default function AddressForm() {
           {state?.message && (
             <Alert variant={state.success ? "default" : "destructive"}>
               {state.success && <CheckCircle2 className="h-4 w-4" />}
+              {state.errors && <CircleAlert className="h-4 w-4" />}
               <AlertDescription>{state.message}</AlertDescription>
             </Alert>
           )}
