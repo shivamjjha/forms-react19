@@ -13,6 +13,6 @@ export type ActionResponse = {
   errors?: {
     [K in keyof AddressFormData]?: { errors?: string[] };
   };
-  inputs?: AddressFormData,
+  initialData?: AddressFormData,
 }
 

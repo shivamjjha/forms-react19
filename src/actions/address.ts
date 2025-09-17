@@ -30,7 +30,7 @@ export async function submitAddress(prevState: ActionResponse | null, formData: 
         success: false,
         message: 'Please fix the errors in the form',
         errors: z.treeifyError(validatedData.error).properties,
-        inputs: rawData,
+        initialData: rawData,
       }
     }
 
