@@ -1,11 +1,22 @@
 'use client'
 
+import { useActionState } from 'react'
+import { submitAddress } from '../actions/address'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import type { ActionResponse } from '../types/address'
+import { CheckCircle2 } from 'lucide-react'
+
+const initialState: ActionResponse = {
+  success: false,
+  message: '',
+}
 
 export default function AddressForm() {
+  const [state, action, isPending] = useActionState(submitAddress, initialState)
 
   return (
     <Card className="w-full max-w-lg mx-auto">
@@ -14,7 +25,7 @@ export default function AddressForm() {
         <CardDescription>Please enter your shipping address details below.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form  className="space-y-6" autoComplete="on">
+        <form action={action} className="space-y-6" autoComplete="on">
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="streetAddress">Street Address</Label>
@@ -27,7 +38,13 @@ export default function AddressForm() {
                 maxLength={100}
                 autoComplete="street-address"
                 aria-describedby="streetAddress-error"
+                className={state?.errors?.streetAddress ? 'border-red-500' : ''}
               />
+              {state?.errors?.streetAddress && (
+                <p id="streetAddress-error" className="text-sm text-red-500">
+                  {state.errors.streetAddress.errors?.[0]}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -54,7 +71,13 @@ export default function AddressForm() {
                   maxLength={50}
                   autoComplete="address-level2"
                   aria-describedby="city-error"
+                  className={state?.errors?.city ? 'border-red-500' : ''}
                 />
+                {state?.errors?.city && (
+                  <p id="city-error" className="text-sm text-red-500">
+                    {state.errors.city.errors?.[0]}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -68,7 +91,13 @@ export default function AddressForm() {
                   maxLength={50}
                   autoComplete="address-level1"
                   aria-describedby="state-error"
+                  className={state?.errors?.state ? 'border-red-500' : ''}
                 />
+                {state?.errors?.state && (
+                  <p id="state-error" className="text-sm text-red-500">
+                    {state.errors.state.errors?.[0]}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -80,11 +109,17 @@ export default function AddressForm() {
                   name="zipCode"
                   placeholder="10001"
                   required
-                  pattern="[0-9]{5}(-[0-9]{4})?"
+                  pattern="([0-9]{5}(-[0-9]{4})?|[0-9]{6})"
                   maxLength={10}
                   autoComplete="postal-code"
                   aria-describedby="zipCode-error"
+                  className={state?.errors?.zipCode ? 'border-red-500' : ''}
                 />
+                {state?.errors?.zipCode && (
+                  <p id="zipCode-error" className="text-sm text-red-500">
+                    {state.errors.zipCode.errors?.[0]}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -98,17 +133,30 @@ export default function AddressForm() {
                   maxLength={56}
                   autoComplete="country-name"
                   aria-describedby="country-error"
+                  className={state?.errors?.country ? 'border-red-500' : ''}
                 />
-
+                {state?.errors?.country && (
+                  <p id="country-error" className="text-sm text-red-500">
+                    {state.errors.country.errors?.[0]}
+                  </p>
+                )}
               </div>
             </div>
           </div>
 
+          {state?.message && (
+            <Alert variant={state.success ? "default" : "destructive"}>
+              {state.success && <CheckCircle2 className="h-4 w-4" />}
+              <AlertDescription>{state.message}</AlertDescription>
+            </Alert>
+          )}
+
           <Button 
             type="submit" 
             className="w-full"
+            disabled={isPending}
           >
-            Save Address
+            {isPending ? 'Saving...' : 'Save Address'}
           </Button>
         </form>
       </CardContent>
